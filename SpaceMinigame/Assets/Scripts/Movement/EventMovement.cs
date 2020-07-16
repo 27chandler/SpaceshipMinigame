@@ -2,33 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(PhysicsController))]
 public class EventMovement : Movement
 {
-    [SerializeField] private bool isRightActive = false;
-    [SerializeField] private bool isLeftActive = false;
-
-    private void Update()
+    void Start()
     {
-        if (isRightActive)
-        {
-            MoveRight();
-            isRightActive = false;
-        }
+        ShipEvents.current.onActivateEngine += Move;
 
-        if (isLeftActive)
-        {
-            MoveLeft();
-            isLeftActive = false;
-        }
+        base.OnStart();
     }
 
-    private void MoveRight()
+    void OnDestroy()
     {
-        PhysicsMove(transform.right);
+        ShipEvents.current.onActivateEngine -= Move;
     }
 
-    private void MoveLeft()
+    private void Move(Vector3 direction)
     {
-        PhysicsMove(-transform.right);
+        PhysicsMove(direction);
     }
 }

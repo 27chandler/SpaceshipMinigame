@@ -3,28 +3,36 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class Movement : MonoBehaviour
+public abstract class Movement : MonoBehaviour
 {
     [SerializeField] private float _speed;
 
     public float SetSpeed() => _speed;
 
-    private Rigidbody2D rb;
+    private PhysicsController _physicsController;
 
     private void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
+        OnStart();
     }
 
     public void SimpleMove(Vector3 direction)
     {
         Vector3 directionNormalized = direction.normalized;
-        transform.position += directionNormalized * _speed * Time.deltaTime;
+
+        Vector2 newDelta;
+        newDelta.x = directionNormalized.x * _speed * Time.deltaTime;
+        newDelta.y = directionNormalized.y * _speed * Time.deltaTime;
+        _physicsController.AddDelta(newDelta);
     }
 
-    public void PhysicsMove(Vector3 direction)
+    public void PhysicsMove(Vector3 velocity)
     {
-        Vector3 directionNormalized = direction.normalized;
-        rb.AddForce(direction * _speed * Time.deltaTime);
+        _physicsController.AddVelocity(new Vector2(velocity.x, velocity.y) * Time.deltaTime);
+    }
+
+    protected void OnStart()
+    {
+        _physicsController = GetComponent<PhysicsController>();
     }
 }

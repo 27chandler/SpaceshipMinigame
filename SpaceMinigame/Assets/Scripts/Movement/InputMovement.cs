@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(PhysicsController))]
 public class InputMovement : Movement
 {
     // Update is called once per frame
