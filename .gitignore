@@ -62,3 +62,5 @@ crashlytics-build.properties
 SpaceMinigame/Library/
 
 SpaceMinigame/Logs/
+
+SpaceMinigame/Temp/
