@@ -11,4 +11,14 @@ public class PlayerInteract : MonoBehaviour
         if (Input.GetKey(_interactKey))
             InteractionEvent.current.PlayerInteract(transform.position);
     }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        InteractionEvent.current.PlayerEnterTrigger(other.tag);
+    }
+
+    void OnTriggerExit2D(Collider2D other)
+    {
+        InteractionEvent.current.PlayerExitTrigger(other.tag);
+    }
 }
