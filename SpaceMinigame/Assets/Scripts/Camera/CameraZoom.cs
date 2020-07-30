@@ -5,24 +5,28 @@ using UnityEngine;
 public class CameraZoom : MonoBehaviour
 {
     [SerializeField] private string zoomTag;
+
+    private bool _isZoomed = true;
+
     void Start()
     {
-        InteractionEvent.current.onPlayerEnterTrigger += Zoom;
-        InteractionEvent.current.onPlayerExitTrigger += ExitZoom;
+        InteractionEvent.current.onPlayerActivateZoom += Zoom;
+        InteractionEvent.current.onPlayerDeactivateZoom += ExitZoom;
+        InteractionEvent.current.onPlayerToggleZoom += ToggleZoom;
     }
 
     void OnDestroy()
     {
-        InteractionEvent.current.onPlayerEnterTrigger -= Zoom;
-        InteractionEvent.current.onPlayerExitTrigger -= ExitZoom;
+        InteractionEvent.current.onPlayerActivateZoom -= Zoom;
+        InteractionEvent.current.onPlayerDeactivateZoom -= ExitZoom;
+        InteractionEvent.current.onPlayerToggleZoom -= ToggleZoom;
     }
 
     private void Zoom(string tag)
     {
-        Debug.Log("Triggered: " + tag);
         if (zoomTag == tag)
         {
-            Camera.main.orthographicSize = 5.0f;
+            SetZoom(5.0f, true);
         }
     }
 
@@ -30,7 +34,28 @@ public class CameraZoom : MonoBehaviour
     {
         if (zoomTag == tag)
         {
-            Camera.main.orthographicSize = 25.0f;
+            SetZoom(25.0f, false);
         }
+    }
+
+    private void ToggleZoom()
+    {
+        _isZoomed = !_isZoomed;
+
+        if (_isZoomed)
+        {
+            SetZoom(5.0f, _isZoomed);
+        }
+        else
+        {
+            SetZoom(25.0f, _isZoomed);
+        }
+
+    }
+
+    private void SetZoom(float zoom, bool mode)
+    {
+        Camera.main.orthographicSize = zoom;
+        _isZoomed = mode;
     }
 }

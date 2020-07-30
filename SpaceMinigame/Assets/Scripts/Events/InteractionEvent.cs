@@ -8,8 +8,9 @@ public class InteractionEvent : MonoBehaviour
     public static InteractionEvent current;
 
     public event Action<Vector3> onPlayerInteract;
-    public event Action<string> onPlayerEnterTrigger;
-    public event Action<string> onPlayerExitTrigger;
+    public event Action<string> onPlayerActivateZoom;
+    public event Action<string> onPlayerDeactivateZoom;
+    public event Action onPlayerToggleZoom;
 
     private void Awake()
     {
@@ -24,19 +25,27 @@ public class InteractionEvent : MonoBehaviour
         }
     }
 
-    public void PlayerEnterTrigger(string tag)
+    public void PlayerActivateZoom(string tag)
     {
-        if (onPlayerEnterTrigger != null)
+        if (onPlayerActivateZoom != null)
         {
-            onPlayerEnterTrigger(tag);
+            onPlayerActivateZoom(tag);
         }
     }
 
-    public void PlayerExitTrigger(string tag)
+    public void PlayerDeactivateZoom(string tag)
     {
-        if (onPlayerExitTrigger != null)
+        if (onPlayerDeactivateZoom != null)
         {
-            onPlayerExitTrigger(tag);
+            onPlayerDeactivateZoom(tag);
+        }
+    }
+
+    public void PlayerToggleZoom()
+    {
+        if (onPlayerToggleZoom != null)
+        {
+            onPlayerToggleZoom();
         }
     }
 }
