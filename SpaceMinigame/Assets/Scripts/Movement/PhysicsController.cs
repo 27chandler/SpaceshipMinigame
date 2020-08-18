@@ -20,6 +20,9 @@ public class PhysicsController : MonoBehaviour
         _movementDelta = new Vector2(0.0f, 0.0f);
     }
 
+    public Vector2 GetVelocity() { return _velocity; }
+    public void SetVelocity(Vector2 velocity) { _velocity = velocity; }
+
     public void AddDelta(Vector2 delta)
     {
         _movementDelta += delta;

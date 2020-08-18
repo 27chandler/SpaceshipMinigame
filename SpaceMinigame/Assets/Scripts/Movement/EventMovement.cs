@@ -5,20 +5,33 @@ using UnityEngine;
 [RequireComponent(typeof(PhysicsController))]
 public class EventMovement : Movement
 {
+    [SerializeField] private string _eventTag;
+
     void Start()
     {
-        ShipEvents.current.onActivateEngine += Move;
+        ShipEvents.current.onActivateEngine += Accelerate;
 
         base.OnStart();
     }
 
     void OnDestroy()
     {
-        ShipEvents.current.onActivateEngine -= Move;
+        ShipEvents.current.onActivateEngine -= Accelerate;
     }
 
-    private void Move(Vector3 direction)
+    private void Accelerate(string tag, Vector3 direction)
     {
-        PhysicsMove(direction);
+        if (tag == _eventTag)
+        {
+            PhysicsMove(direction);
+        }
+    }
+
+    private void Move(string tag, Vector3 direction)
+    {
+        if (tag == _eventTag)
+        {
+            SimpleMove(direction);
+        }
     }
 }

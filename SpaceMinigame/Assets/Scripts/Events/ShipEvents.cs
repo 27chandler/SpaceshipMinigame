@@ -6,10 +6,12 @@ using UnityEngine;
 public class ShipEvents : MonoBehaviour
 {
     [SerializeField] private float _shipThrust;
+    [SerializeField] private string _shipMoveTag;
 
     public static ShipEvents current;
 
-    public event Action<Vector3> onActivateEngine;
+    public event Action<string, Vector3> onActivateEngine;
+    //public event Action<string, Vector3> onChangeDistance;
 
     private void Awake()
     {
@@ -20,7 +22,15 @@ public class ShipEvents : MonoBehaviour
     {
         if (onActivateEngine != null)
         {
-            onActivateEngine(thrust_direction * _shipThrust);
+            onActivateEngine(_shipMoveTag, -(thrust_direction * _shipThrust));
         }
     }
+
+    //public void ChangeDistance(Vector3 thrust_direction)
+    //{
+    //    if (onActivateEngine != null)
+    //    {
+    //        onChangeDistance(_shipMoveTag, -(thrust_direction * _shipThrust));
+    //    }
+    //}
 }
