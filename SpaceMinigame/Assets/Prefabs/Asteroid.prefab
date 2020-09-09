@@ -179,7 +179,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 0
-  _eventTag: ShipMove
+  _moveTag: ShipMove
+  _dampenTag: ShipDampen
 --- !u!114 &5118823487590076923
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -5,24 +5,19 @@ using UnityEngine;
 [RequireComponent(typeof(PhysicsController))]
 public class InputMovement : Movement
 {
+
+
+    [SerializeField] private string _horizontalAxis;
+    [SerializeField] private string _verticalAxis;
+
+
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.W))
-        {
-            SimpleMove(transform.up);
-        }
-        if (Input.GetKey(KeyCode.S))
-        {
-            SimpleMove(-transform.up);
-        }
-        if (Input.GetKey(KeyCode.D))
-        {
-            SimpleMove(transform.right);
-        }
-        if (Input.GetKey(KeyCode.A))
-        {
-            SimpleMove(-transform.right);
-        }
+        Vector3 movement = new Vector3();
+        movement.x = Input.GetAxisRaw(_horizontalAxis);
+        movement.y = Input.GetAxisRaw(_verticalAxis);
+
+        SimpleMove(movement);
     }
 }

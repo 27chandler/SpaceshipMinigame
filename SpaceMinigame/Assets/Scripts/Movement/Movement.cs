@@ -31,6 +31,11 @@ public abstract class Movement : MonoBehaviour
         _physicsController.AddVelocity(new Vector2(velocity.x, velocity.y) * Time.deltaTime);
     }
 
+    public void DampenDirection(Vector3 velocity)
+    {
+        _physicsController.SetBlockDirection(velocity);
+    }
+
     protected void OnStart()
     {
         _physicsController = GetComponent<PhysicsController>();
