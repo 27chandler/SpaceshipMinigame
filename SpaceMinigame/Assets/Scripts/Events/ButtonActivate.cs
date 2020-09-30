@@ -5,6 +5,7 @@ using UnityEngine;
 public class ButtonActivate : MonoBehaviour
 {
     [SerializeField] private Vector3 _thrustDirection;
+    [SerializeField] protected bool _canThrust = true;
     // Start is called before the first frame update
     void Start()
     {
@@ -16,9 +17,17 @@ public class ButtonActivate : MonoBehaviour
         InteractionEvent.current.onPlayerInteract -= ActivateButton;
     }
 
-    private void ActivateButton(Vector3 position)
+    protected void ActivateButton(Vector3 position)
     {
-        if (Vector3.Distance(position,transform.position) <= 1.0f)
+        if ((Vector3.Distance(position,transform.position) <= 1.0f) && (_canThrust))
+        {
             ShipEvents.current.ActivateEngine(_thrustDirection);
+            ActivateSecondaryEffects();
+        }
+    }
+
+    protected virtual void ActivateSecondaryEffects()
+    {
+
     }
 }

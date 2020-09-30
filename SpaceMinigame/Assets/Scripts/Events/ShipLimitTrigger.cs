@@ -11,10 +11,12 @@ public class ShipLimitTrigger : MonoBehaviour
     private void OnTriggerStay2D(Collider2D collision)
     {
         ShipEvents.current.ActivateDampening(_dampenDirection);
+        Debug.Log("Dampening activated");
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
         ShipEvents.current.ActivateDampening(new Vector3(0.0f,0.0f));
+        Debug.Log("Dampening deactivated");
     }
 }
