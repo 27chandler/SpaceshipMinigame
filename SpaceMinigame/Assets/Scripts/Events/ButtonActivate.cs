@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ButtonActivate : MonoBehaviour
 {
-    [SerializeField] private Vector3 _thrustDirection;
+    [SerializeField] protected Vector3 _thrustDirection;
     [SerializeField] protected bool _canThrust = true;
     // Start is called before the first frame update
     void Start()
